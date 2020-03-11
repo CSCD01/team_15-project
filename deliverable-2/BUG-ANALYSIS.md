@@ -8,17 +8,17 @@
 
 * Issue Description
 
-This bug is caused by the DRM permissions set on the Firefox browser.
+    This bug is caused by the DRM permissions set on the Firefox browser.
 
-To reproduce the bug, start up Firefox and in the options, disable playing DRM content. Then, login to Spotify with valid credentials. Close the tab. Next, type or speak a play request into the extension, such as "Play Changmo Maestro on Spotify". This should open up a new Spotify tab, however no music will play and an error message will appear in the extension.
+    To reproduce the bug, start up Firefox and in the options, disable playing DRM content. Then, login to Spotify with valid credentials. Close the tab. Next, type or speak a play request into the extension, such as "Play Changmo Maestro on Spotify". This should open up a new Spotify tab, however no music will play and an error message will appear in the extension.
 
-Currently, the extension plays music by passing the query to the intent runner, which initializes the music player module and searches the page for a search bar element (`a[aria-label='Search']`). If found, it will search for the requested song/artist.
+    Currently, the extension plays music by passing the query to the intent runner, which initializes the music player module and searches the page for a search bar element (`a[aria-label='Search']`). If found, it will search for the requested song/artist.
 
-However, if DRM is disabled on the browser, a search bar will never appear because Spotify displays an error page that notifies the user to enable DRM. Then, the extension fails and throws an error to the user, indicating that the search bar could not be found.
+    However, if DRM is disabled on the browser, a search bar will never appear because Spotify displays an error page that notifies the user to enable DRM. Then, the extension fails and throws an error to the user, indicating that the search bar could not be found.
 
 * Work Estimation
 
-This bug should not take more than 4 hours to complete, as it's easily reproducible. Some time will be needed to observe how the music player interacts with the query runner, but it should not be too complicated as it doesn't interact with other areas of the system.
+    This bug should not take more than 4 hours to complete, as it's easily reproducible. Some time will be needed to observe how the music player interacts with the query runner, but it should not be too complicated as it doesn't interact with other areas of the system.
 
 NOTE: We may have messed up this bug because we forked into our own repo by accident and didn't notice. Here's the [link](https://github.com/michael-mml/firefox-voice/tree/mml/spotify-drm).
 
@@ -62,6 +62,7 @@ NOTE: We may have messed up this bug because we forked into our own repo by acci
     One of the tools that Firefox Voice offers is integration with the Spotify API to allow users to play quickly open a Spotify tab and play their desired songs. This specific issue is caused by using Firefox Voice to play song #1 on Spotify. The initial command works well but if the user closes the Spotify tab and then runs the same command to play song #2, a new tab is opened that instead plays song #1 (even though song #2 was requested).
 
 * Work Estimation and why we did not choose this issue: 
+
     Upon initial inspection of the issue, we immediately investigated the /extension/services/spotify folder to examine how Firefox Voice plays a song on Spotify. We observed that the logic included in the files in this folder correctly communicated with the Spotify API in order to play the desired song of the user. We suspect that this issue might be caused by an issue with the Spotify API itself when multiple requests are made in succession and problems with Spotify’s web player. Due to the fact that this issue involves an extremely popular command, along with the nature of this issue requiring further investigation into Spotify’s API itself, we determined that this issue may take up to 10 hours of fix time and decided not to pursue it for this deliverable.
 
 
