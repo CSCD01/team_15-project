@@ -46,7 +46,7 @@ NOTE: We may have messed up this bug because we forked into our own repo by acci
 
     Firefox voice supports browser actions through voice command, one of the actions is basic tab navigation such as next tab, previous tab. This issue is a feature that adds in more actions in tab navigation like go to a specific tab by index.
 
-* Work estimation and Why we didn't choose it:
+* Work estimation and why we did not choose this issue:
 
 
     Our team has researched on the architecture of the project in the previous deliverables, so the place for modification is quickly identified. But as we went into the issue, we encountered two complications that we deemed the issue as inappropriate. First this issue involves adding more fields in an object that is shared between multiple modules. This is a non-trivial architectural change in the project. We estimated that it would take 2+ hours for one team member to identify all the effects of this change. Second is that the team needs to research how to pattern match voice command with variables. We estimated that this process would take the team 1 to 2 hours as splitting up research work among five people won’t reduce the time to a fifth. 
@@ -64,6 +64,33 @@ NOTE: We may have messed up this bug because we forked into our own repo by acci
 * Work Estimation and why we did not choose this issue: 
 
     Upon initial inspection of the issue, we immediately investigated the /extension/services/spotify folder to examine how Firefox Voice plays a song on Spotify. We observed that the logic included in the files in this folder correctly communicated with the Spotify API in order to play the desired song of the user. We suspect that this issue might be caused by an issue with the Spotify API itself when multiple requests are made in succession and problems with Spotify’s web player. Due to the fact that this issue involves an extremely popular command, along with the nature of this issue requiring further investigation into Spotify’s API itself, we determined that this issue may take up to 10 hours of fix time and decided not to pursue it for this deliverable.
+
+
+
+
+## [Issue #1117](https://github.com/mozilla/firefox-voice/issues/1117) “Copy and Paste commands copy incorrect text on a translated page” 
+
+* Item Description: 
+
+    Firefox Voice has a very useful command available to its users that allows them to copy and paste text using the extension. This functionality does not work correctly when the user has translated their current page into a different language (translated via Firefox Voice). Instead, when the user pastes the highlighted text, it will paste it in the pages original language, rather than the translated one.
+
+* Work Estimation and why we did not choose this issue: 
+
+    As a group, we investigated the code within /extension/intents/clipboard which is responsible for all actions and intents relating to the clipboard. We were brought under the attention of the code in /extension/intents/clipboard/contentScript.js which has the exact code that copies text from the DOM. Based on the comment from one of the product developers, this issue may actually be an issue from Firefox Web itself, as it has been reported that there have been issues with traditional ‘Copy’ and ‘Paste’. With this reason, we determined that further investigation was required across the larger repo. It would take approximately 3 hours into investigating where the issue stems from. If the issue does indeed originate from Firefox Web, it would take several additional hours understanding the repo to find the root of the problem.
+
+
+
+
+## [Issue #1090](https://github.com/mozilla/firefox-voice/issues/1090) “Translate selection command does not work after a translate page command” 
+
+* Item Description: 
+
+    One of the neat tools under Firefox Voice’s toolkit is the translation command. This allows you to either translate selected text or even an entire page. The following issue is caused when a user first translates a page into a language (say English to French) and then attempts to translate selected text into a different language (say French to Spanish). The first command to translate the entire page works as intended but the second translate command causes an internal error to appear to the user on the extension.
+
+* Work Estimation and why we did not choose this issue: 
+
+    After examining the translation intent under /extension/intents/navigation/navigation.js, we were able to see that Firefox Voice utilizes the Google Translate API. We have determined that the issue is caused by the code reading the browser language rather than the new translated language. For example, even though we have translated the page from English to French, once we send a request to Google Translate to translate selected text to Spanish, the browser’s language is still English. We felt that this issue would be difficult to fix just due to the fact that several design decisions would need to be made with product managers and developers to find an alternative way to get the current browser language.
+
 
 
 
