@@ -1,4 +1,4 @@
-# Firefox Voices Bugs/Features Analysis
+# Firefox Voice Bugs/Features Analysis
 
 ## [Issue #551](https://github.com/mozilla/firefox-voice/issues/551)
 
@@ -13,3 +13,11 @@ However, if DRM is disabled on the browser, a search bar will never appear becau
 This bug should not take more than 4 hours to complete, as it easily reproducible. Some time will be needed to observe how the music player interacts with the query runner, but it should not be too complicated as it doesn't interact with other areas of the system.
 
 NOTE: We may have messed up this bug because we forked into our own repo by accident and didn't notice. Here's the [link](https://github.com/michael-mml/firefox-voice/tree/mml/spotify-drm).
+
+__Test case__
+
+1. Disable DRM in Firefox by click the 3-bar menu, preferences, general and unchecking "Play DRM-controlled content".
+2. Open up a tab and navigate to some website.
+3. Click the Firefox Voice extension and either type or speak "Play <artist>/<song> on Spotify".
+4. If an existing Spotify tab is not open, the extension opens a new tab, navigates to the "Enable secure playback in your browser" (localization dependent).
+5. Extension should show the error "Internal error: Error: You must enable DRM."
