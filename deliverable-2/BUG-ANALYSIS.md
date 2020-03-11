@@ -92,9 +92,6 @@ NOTE: We may have messed up this bug because we forked into our own repo by acci
     After examining the translation intent under /extension/intents/navigation/navigation.js, we were able to see that Firefox Voice utilizes the Google Translate API. We have determined that the issue is caused by the code reading the browser language rather than the new translated language. For example, even though we have translated the page from English to French, once we send a request to Google Translate to translate selected text to Spanish, the browser’s language is still English. We felt that this issue would be difficult to fix just due to the fact that several design decisions would need to be made with product managers and developers to find an alternative way to get the current browser language.
 
 
-
-
-
 ## Reason for our issue selection
 
 The reason for [Issue #1220] “unmute this page”:
@@ -111,11 +108,27 @@ __Test case__
 5. Next, speak or type "unmute this tab" or "unmute" to the Firefox Voice extension.
 6. Verify that the extension is able to ***un***mute a single tab and all the tabs with the respective commands.
 
+__Modified source code:__
+
+- `extension/intents/muting/muting.toml`
+
+    Here is where we added ***new*** unmute patterns to the configuration file so that it enables the 
+listen/transcriber to pick up this "utterance" so it can be processed by the intent runner.
+
+- `extension/background/language/general.test.js`
+
+    Here is where we added unit tests that verifies the new unmute patterns are being picked up
+and processed.
+
+- `extension/intents/phrases.test.js`
+
+    This file automatically check against all phrases to ensure the **examples** in the intents work properly.
+So when we edited the muting configuration, this file is also effected, without us explicitly doing so.
+
+
 The reason for [Issue #551] “DRM permission”:
 
    “DRM permission” is another bug we chose to work on. In previous research, we looked at a couple of issues and familiarize ourselves with this issue early on. Working on this issue also gives a better understanding of what happens after intent execution, and how we can connect to other websites (in addition to youtube and spotify) which will be beneficial to development in the future. Effort : since this interacts with third-party services, it doesn’t require full understanding of the core app. As a result, it would not require understanding minute details in the architecture. The risk is that we can’t guarantee that the bug is only contained in parts we first perceived such as the music player components and may be caused by something more fundamental, such as how they detect the various buttons and elements.
-
-
 
 __Test case__
 
@@ -125,7 +138,9 @@ __Test case__
 4. If an existing Spotify tab is not open, the extension opens a new tab, navigates to the "Enable secure playback in your browser" (localization dependent).
 5. Extension should show the error "Internal error: Error: You must enable DRM."
 
-__Modified source code: `extension/services/spotify/player.js`__
+__Modified source code:__
 
-This changes the design so that the `Spotify` class can catch a more specific error from `Player` and handle it differently compared to other searches for elements on the page.
+- `extension/services/spotify/player.js`: 
+
+    This changes the design so that the `Spotify` class can catch a more specific error from `Player` and handle it differently compared to other searches for elements on the page.
 It also adds an additional type of error that the application can check, and an additional test case that should be covered.
