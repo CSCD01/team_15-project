@@ -6,6 +6,8 @@
 
 ## [Issue #551](https://github.com/mozilla/firefox-voice/issues/551) _(chosen to be implemented)_
 
+* Issue Description
+
 This bug is caused by the DRM permissions set on the Firefox browser.
 
 To reproduce the bug, start up Firefox and in the options, disable playing DRM content. Then, login to Spotify with valid credentials. Close the tab. Next, type or speak a play request into the extension, such as "Play Changmo Maestro on Spotify". This should open up a new Spotify tab, however no music will play and an error message will appear in the extension.
@@ -14,12 +16,13 @@ Currently, the extension plays music by passing the query to the intent runner, 
 
 However, if DRM is disabled on the browser, a search bar will never appear because Spotify displays an error page that notifies the user to enable DRM. Then, the extension fails and throws an error to the user, indicating that the search bar could not be found.
 
+* Work Estimation
+
 This bug should not take more than 4 hours to complete, as it's easily reproducible. Some time will be needed to observe how the music player interacts with the query runner, but it should not be too complicated as it doesn't interact with other areas of the system.
 
 NOTE: We may have messed up this bug because we forked into our own repo by accident and didn't notice. Here's the [link](https://github.com/michael-mml/firefox-voice/tree/mml/spotify-drm).
 
-
-
+* PR Link: [https://github.com/mozilla/firefox-voice/pull/1152](https://github.com/mozilla/firefox-voice/pull/1152)
 
 
 ## [Issue #1220](https://github.com/mozilla/firefox-voice/issues/1220) "Unmute this page" doesn't work _(chosen to be implemented)_
@@ -28,14 +31,13 @@ NOTE: We may have messed up this bug because we forked into our own repo by acci
 
     When media content is playing in the browser, saying “mute this page” will mute the media. However, saying “unmute this page” wouldn’t unmute successfully. Furthermore, when a users says “mute”, the browser will mute the video that is playing for the user but when a user says “unmute”, the browser will not unmute the video for  the user
 
-* Work estimation:
+* Work Estimation:
 
 
     We first reproduced the bug. With our team’s knowledge of the architecture from last deliverable, we quickly identified where the bug appears in the project. We estimate that it’s a simple fix with no foreseeable complications during the implementation. Our estimation is that it would take less than one hour.
 
 
-
-
+* PR Link: [https://github.com/mozilla/firefox-voice/pull/1227](https://github.com/mozilla/firefox-voice/pull/1227)
 
 ## [Issue#1082](https://github.com/mozilla/firefox-voice/issues/1082) Select tab by number 
 
