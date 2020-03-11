@@ -1,10 +1,10 @@
 
 # Deliverable 2 Firefox Voice Bugs/Features Analysis 
 
-#### Trello Link: https://trello.com/b/aKI5ytfV/deliverable-2
+#### Trello Link: https://trello.com/b/aKI5ytfV/deliverable-2 this board records our activities during the project.
 
 ## Here is the list of issues we investigated:
-
+All the time estimates are derived by averaging out individual team member's estimation. If only one member investigated, all members are introduced to the issue before giving an estimation. 
 
 ## [Issue #551](https://github.com/mozilla/firefox-voice/issues/551) _(chosen to be implemented)_
 
@@ -96,7 +96,7 @@ NOTE: We may have messed up the repository when we are fixing this bug because w
 
 ## Reason for our issue selection
 
-The reason for [Issue #1220] “unmute this page”:
+__The reason for [Issue #1220] “unmute this page”:__
     
    *“‘Unmute this page’ doesn't work' is one of the more reasonable issues among our selection. The team was able to come up with a rough idea on the general direction of the change relatively quickly based on our knowledge. It is also an issue that we didn’t identify any foreseeable risks because its scope is narrowed to a change in a single module. Therefore, it became our first pick as we believe it is a beginner friendly issue. With the combination of reproducing the bug, identifying the issue, locating the appropriate file to fix and writing test cases, we anticipated work is around an hour or two. In addition, this bug is critical for the project. Failing to unmute the soundtrack will cause failure in other customized services such as Youtube, Spotify and New York Times in which their main interaction with users are through audio or videos. Therefore, even though it is not a difficult fix in a technical aspect, it is an important feature for the project.*
 
@@ -109,7 +109,7 @@ __Test case__
 4. Verify that the extension is able to mute the website with the mute command.
 5. Next, speak or type "unmute this page", "unmute this tab", or just "unmute" to the Firefox Voice extension.
 6. Verify that the extension is able to ***un***mute the tab.
-7. You can also run *npm test* or on your machine to verify that the newly added match works correctly and it does not break any other exsisting features. *npm test* will run 2 test suites: *extension/background/language/general.test.js* and *extension/intents/phrases.test.js*
+7. You can also run *npm test* or on your machine to verify that the newly added match works correctly and it does not break any other existing features. *npm test* will run 2 test suites: *extension/background/language/general.test.js* and *extension/intents/phrases.test.js*
 
 
 __Modified source code:__
@@ -130,9 +130,9 @@ and processed.
 So when we edited the muting configuration, this file is also effected, without us explicitly doing so.
 
 
-The reason for [Issue #551] “DRM permission”:
+__The reason for [Issue #551] “DRM permission”:__
 
-   “DRM permission” is another bug we chose to work on. In previous research, we looked at a couple of issues and familiarize ourselves with this issue early on. Working on this issue also gives a better understanding of what happens after intent execution, and how we can connect to other websites (in addition to youtube and spotify) which will be beneficial to development in the future. Effort : since this interacts with third-party services, it doesn’t require full understanding of the core app. As a result, it would not require understanding minute details in the architecture. The risk is that we can’t guarantee that the bug is only contained in parts we first perceived such as the music player components and may be caused by something more fundamental, such as how they detect the various buttons and elements.
+   “DRM permission” is another bug we chose to work on. In previous research, we looked at a couple of issues and familiarize ourselves with this issue early on. Working on this issue also gives a better understanding of what happens after intent execution, and how we can connect to other websites (in addition to youtube and spotify) which will be beneficial to development in the future. Effort: since this interacts with third-party services, it doesn’t require full understanding of the core app. As a result, it would not require understanding minute details in the architecture. The risk is that we can’t guarantee that the bug is only contained in parts we first perceived such as the music player components and may be caused by something more fundamental, such as how they detect the various buttons and elements. But we agreeed that this risk would not be a significant threat to the completion of this issue.
 
 __Test case__
 
