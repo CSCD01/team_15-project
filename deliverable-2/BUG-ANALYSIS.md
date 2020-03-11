@@ -1,6 +1,10 @@
-# Firefox Voice Bugs/Features Analysis
+# Deliverable 2 Firefox Voice Bugs/Features Analysis 
 
-## [Issue #551](https://github.com/mozilla/firefox-voice/issues/551)
+
+## Here is the list of issues we investigated:
+
+
+## [Issue #551](https://github.com/mozilla/firefox-voice/issues/551) _(chosen to be implemented)_
 
 This bug is caused by the DRM permissions set on the Firefox browser.
 
@@ -13,6 +17,86 @@ However, if DRM is disabled on the browser, a search bar will never appear becau
 This bug should not take more than 4 hours to complete, as it's easily reproducible. Some time will be needed to observe how the music player interacts with the query runner, but it should not be too complicated as it doesn't interact with other areas of the system.
 
 NOTE: We may have messed up this bug because we forked into our own repo by accident and didn't notice. Here's the [link](https://github.com/michael-mml/firefox-voice/tree/mml/spotify-drm).
+
+
+
+
+
+## [Issue #1220](https://github.com/mozilla/firefox-voice/issues/1220) "Unmute this page" doesn't work _(chosen to be implemented)_
+* Issue description:
+
+
+    When media content is playing in the browser, saying “mute this page” will mute the media. However, saying “unmute this page” wouldn’t unmute successfully. Furthermore, when a users says “mute”, the browser will mute the video that is playing for the user but when a user says “unmute”, the browser will not unmute the video for  the user
+
+* Work estimation:
+
+
+    We first reproduced the bug. With our team’s knowledge of the architecture from last deliverable, we quickly identified where the bug appears in the project. We estimate that it’s a simple fix with no foreseeable complications during the implementation. Our estimation is that it would take less than one hour.
+
+
+
+
+
+## [Issue#1082](https://github.com/mozilla/firefox-voice/issues/1082) Select tab by number 
+
+* Issue description:
+
+
+    Firefox voice supports browser actions through voice command, one of the actions is basic tab navigation such as next tab, previous tab. This issue is a feature that adds in more actions in tab navigation like go to a specific tab by index.
+
+* Work estimation and Why we didn't choose it:
+
+
+    Our team has researched on the architecture of the project in the previous deliverables, so the place for modification is quickly identified. But as we went into the issue, we encountered two complications that we deemed the issue as inappropriate. First this issue involves adding more fields in an object that is shared between multiple modules. This is a non-trivial architectural change in the project. We estimated that it would take 2+ hours for one team member to identify all the effects of this change. Second is that the team needs to research how to pattern match voice command with variables. We estimated that this process would take the team 1 to 2 hours as splitting up research work among five people won’t reduce the time to a fifth. 
+  
+
+
+
+
+## [Issue #566](https://github.com/mozilla/firefox-voice/issues/566) “Playing song on Spotify causes unintended song to play after closing previous Spotify tab” 
+
+* Item Description: 
+
+    One of the tools that Firefox Voice offers is integration with the Spotify API to allow users to play quickly open a Spotify tab and play their desired songs. This specific issue is caused by using Firefox Voice to play song #1 on Spotify. The initial command works well but if the user closes the Spotify tab and then runs the same command to play song #2, a new tab is opened that instead plays song #1 (even though song #2 was requested).
+
+* Work Estimation and why we did not choose this issue: 
+    Upon initial inspection of the issue, we immediately investigated the /extension/services/spotify folder to examine how Firefox Voice plays a song on Spotify. We observed that the logic included in the files in this folder correctly communicated with the Spotify API in order to play the desired song of the user. We suspect that this issue might be caused by an issue with the Spotify API itself when multiple requests are made in succession and problems with Spotify’s web player. Due to the fact that this issue involves an extremely popular command, along with the nature of this issue requiring further investigation into Spotify’s API itself, we determined that this issue may take up to 10 hours of fix time and decided not to pursue it for this deliverable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Reason for our issue selection
+
+The reason for [Issue #1220] “unmute this page”:
+    
+   Unmute this page doesn't work” is one of the least complicated issues among our selection. The team was able to identify the change really quickly solely based on previous knowledge. It is also the issue that we didn’t identify any foreseeable risks because its scope is narrowed to a single change in a single module. So it is our first pick for its safety. Also the anticipated work is less than an hour. Lastly the team agrees that this change is very likely to be accepted. 
+
+
+The reason for [Issue #551] “DRM permission”:
+
+   “DRM permission” is another bug we chose to work on. In previous research, we looked at a couple of issues and familiarize ourselves with this issue early on. Working on this issue also gives a better understanding of what happens after intent execution, and how we can connect to other websites (in addition to youtube and spotify) which will be beneficial to development in the future. Effort : since this interacts with third-party services, it doesn’t require full understanding of the core app. As a result, it would not require understanding minute details in the architecture. The risk is that we can’t guarantee that the bug is only contained in parts we first perceived such as the music player components and may be caused by something more fundamental, such as how they detect the various buttons and elements.
+
+
+
+
+
+
+
+
+
+
+
 
 __Test case__
 
