@@ -21,3 +21,8 @@ __Test case__
 3. Click the Firefox Voice extension and either type or speak "Play <artist>/<song> on Spotify".
 4. If an existing Spotify tab is not open, the extension opens a new tab, navigates to the "Enable secure playback in your browser" (localization dependent).
 5. Extension should show the error "Internal error: Error: You must enable DRM."
+
+__Modified source code: `extension/services/spotify/player.js`__
+
+This changes the design so that the `Spotify` class can catch a more specific error from `Player` and handle it differently compared to other searches for elements on the page.
+It also adds an additional type of error that the application can check, and an additional test case that should be covered.
