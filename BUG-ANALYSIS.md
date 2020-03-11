@@ -12,3 +12,4 @@ However, if DRM is disabled on the browser, a search bar will never appear becau
 
 This bug should not take more than 4 hours to complete, as it easily reproducible. Some time will be needed to observe how the music player interacts with the query runner, but it should not be too complicated as it doesn't interact with other areas of the system.
 
+NOTE: We may have messed up this bug because we forked into our own repo by accident and didn't notice. Here's the [link](https://github.com/michael-mml/firefox-voice/tree/mml/spotify-drm).
