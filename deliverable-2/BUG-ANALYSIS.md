@@ -3,6 +3,8 @@
 
 #### Trello Link: https://trello.com/b/aKI5ytfV/deliverable-2 this board records our activities during the project.
 
+
+
 ## Here is the list of issues we investigated:
 All the time estimates are derived by averaging out individual team member's estimation. If only one member investigated, all members are introduced to the issue before giving an estimation. 
 
@@ -27,7 +29,7 @@ NOTE: We may have messed up the repository when we are fixing this bug because w
 * PR Link: [https://github.com/mozilla/firefox-voice/pull/1152](https://github.com/mozilla/firefox-voice/pull/1152)
 
 
-## [Issue #1220](https://github.com/mozilla/firefox-voice/issues/1220) "Unmute this page" doesn't work _(chosen to be implemented)_
+## [Issue #1220](https://github.com/mozilla/firefox-voice/issues/1220) "Unmute this page" doesn't work _(chosen to be implemented)_ 
 * Issue description:
 
 
@@ -98,7 +100,7 @@ NOTE: We may have messed up the repository when we are fixing this bug because w
 
 __The reason for [Issue #1220] “unmute this page”:__
     
-   *“‘Unmute this page’ doesn't work' is one of the more reasonable issues among our selection. The team was able to come up with a rough idea on the general direction of the change relatively quickly based on our knowledge. It is also an issue that we didn’t identify any foreseeable risks because its scope is narrowed to a change in a single module. Therefore, it became our first pick as we believe it is a beginner friendly issue. With the combination of reproducing the bug, identifying the issue, locating the appropriate file to fix and writing test cases, we anticipated work is around an hour or two. In addition, this bug is critical for the project. Failing to unmute the soundtrack will cause failure in other customized services such as Youtube, Spotify and New York Times in which their main interaction with users are through audio or videos. Therefore, even though it is not a difficult fix in a technical aspect, it is an important feature for the project.*
+   “‘Unmute this page’ doesn't work' is one of the more reasonable issues among our selection. The team was able to come up with a rough idea on the general direction of the change relatively quickly based on our knowledge. It is also an issue that we didn’t identify any foreseeable risks because its scope is narrowed to a change in a single module. Therefore, it became our first pick as we believe it is a beginner friendly issue. With the combination of reproducing the bug, identifying the issue, locating the appropriate file to fix and writing test cases, we anticipated work is around an hour or two. In addition, this bug is critical for the project. Failing to unmute the soundtrack will cause failure in other customized services such as Youtube, Spotify and New York Times in which their main interaction with users are through audio or videos. Therefore, even though it is not a difficult fix in a technical aspect, it is an important feature for the project.
 
 
 __Test case__
