@@ -1,3 +1,4 @@
+
 # Deliverable 2 Firefox Voice Bugs/Features Analysis 
 
 
@@ -20,7 +21,7 @@
 
     This bug should not take more than 4 hours to complete, as it's easily reproducible. Some time will be needed to observe how the music player interacts with the query runner, but it should not be too complicated as it doesn't interact with other areas of the system.
 
-NOTE: We may have messed up this bug because we forked into our own repo by accident and didn't notice. Here's the [link](https://github.com/michael-mml/firefox-voice/tree/mml/spotify-drm).
+NOTE: We may have messed up the repository when we are fixing this bug because we forked into our own repo by accident and didn't notice instead of CSCD01 team repository. Here's the [link](https://github.com/michael-mml/firefox-voice/tree/mml/spotify-drm).
 
 * PR Link: [https://github.com/mozilla/firefox-voice/pull/1152](https://github.com/mozilla/firefox-voice/pull/1152)
 
@@ -29,12 +30,12 @@ NOTE: We may have messed up this bug because we forked into our own repo by acci
 * Issue description:
 
 
-    When media content is playing in the browser, saying “mute this page” will mute the media. However, saying “unmute this page” wouldn’t unmute successfully. Furthermore, when a users says “mute”, the browser will mute the video that is playing for the user but when a user says “unmute”, the browser will not unmute the video for  the user
+    When media content is playing in the browser, saying “mute this page” will mute the media. However, saying “unmute this page” wouldn’t unmute successfully. Furthermore, when a user says “mute”, the browser will mute the video which is playing for the user but when a user says “unmute”, the browser will not unmute the video, instead it will search the word “unmute” for the user.
 
 * Work Estimation:
 
 
-    We first reproduced the bug. With our team’s knowledge of the architecture from last deliverable, we quickly identified where the bug appears in the project. We estimate that it’s a simple fix with no foreseeable complications during the implementation. Our estimation is that it would take less than one hour.
+    We first reproduced the bug. With our team’s knowledge of the architecture from last deliverable, we were able to identify the source of this particular bug relatively quickly. After we took some time to investigate the bug in the repository, we came to the conclusion that the bug will not be too difficult for us as the bug affects only a small amount of other components. Our estimation is that it would take roughly an hour to complete the implementation and verification for this bug
 
 
 * PR Link: [https://github.com/mozilla/firefox-voice/pull/1227](https://github.com/mozilla/firefox-voice/pull/1227)
@@ -96,17 +97,19 @@ NOTE: We may have messed up this bug because we forked into our own repo by acci
 
 The reason for [Issue #1220] “unmute this page”:
     
-   Unmute this page doesn't work” is one of the least complicated issues among our selection. The team was able to identify the change really quickly solely based on previous knowledge. It is also the issue that we didn’t identify any foreseeable risks because its scope is narrowed to a single change in a single module. So it is our first pick for its safety. Also the anticipated work is less than an hour. Lastly the team agrees that this change is very likely to be accepted. 
+   *“‘Unmute this page’ doesn't work' is one of the more reasonable issues among our selection. The team was able to come up with a rough idea on the general direction of the change relatively quickly based on our knowledge. It is also an issue that we didn’t identify any foreseeable risks because its scope is narrowed to a change in a single module. Therefore, it became our first pick as we believe it is a beginner friendly issue. With the combination of reproducing the bug, identifying the issue, locating the appropriate file to fix and writing test cases, we anticipated work is around an hour or two. In addition, this bug is critical for the project. Failing to unmute the soundtrack will cause failure in other customized services such as Youtube, Spotify and New York Times in which their main interaction with users are through audio or videos. Therefore, even though it is not a difficult fix in a technical aspect, it is an important feature for the project.*
 
 
 __Test case__
 
 1. Install Firefox Nightly and Firefox Voice extension.
-2. Open up a tab and navigate to some website.
-3. Speak or type "mute this tab" or "mute" to the Firefox Voice extension.
-4. Verify that the extension is able to mute a single tab and all the tabs with the respective commands.
-5. Next, speak or type "unmute this tab" or "unmute" to the Firefox Voice extension.
-6. Verify that the extension is able to ***un***mute a single tab and all the tabs with the respective commands.
+2. Open up a tab and navigate to some website (e.g. Youtube) which has a video or sound track 
+3. Speak or type "mute this tab" or "mute this page" or just "mute" to the Firefox Voice extension.
+4. Verify that the extension is able to mute the website with the mute command.
+5. Next, speak or type "unmute this page", "unmute this tab", or just "unmute" to the Firefox Voice extension.
+6. Verify that the extension is able to ***un***mute the tab.
+7. You can also run *npm test* or on your machine to verify that the newly added match works correctly and it does not break any other exsisting features. *npm test* will run 2 test suites: *extension/background/language/general.test.js* and *extension/intents/phrases.test.js*
+
 
 __Modified source code:__
 
@@ -122,7 +125,7 @@ and processed.
 
 - `extension/intents/phrases.test.js`
 
-    This file automatically check against all phrases to ensure the **examples** in the intents work properly.
+    This file automatically check against all phrases to ensure the **examples** in the intents (see *[[muting.unmute.example]]* sections in `muting.toml`) work properly.
 So when we edited the muting configuration, this file is also effected, without us explicitly doing so.
 
 
