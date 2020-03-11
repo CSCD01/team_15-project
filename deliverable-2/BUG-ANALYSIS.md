@@ -68,17 +68,6 @@ NOTE: We may have messed up this bug because we forked into our own repo by acci
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 ## Reason for our issue selection
 
 The reason for [Issue #1220] “unmute this page”:
@@ -86,18 +75,18 @@ The reason for [Issue #1220] “unmute this page”:
    Unmute this page doesn't work” is one of the least complicated issues among our selection. The team was able to identify the change really quickly solely based on previous knowledge. It is also the issue that we didn’t identify any foreseeable risks because its scope is narrowed to a single change in a single module. So it is our first pick for its safety. Also the anticipated work is less than an hour. Lastly the team agrees that this change is very likely to be accepted. 
 
 
+__Test case__
+
+1. Install Firefox Nightly and Firefox Voice extension.
+2. Open up a tab and navigate to some website.
+3. Speak or type "mute this tab" or "mute" to the Firefox Voice extension.
+4. Verify that the extension is able to mute a single tab and all the tabs with the respective commands.
+5. Next, speak or type "unmute this tab" or "unmute" to the Firefox Voice extension.
+6. Verify that the extension is able to ***un***mute a single tab and all the tabs with the respective commands.
+
 The reason for [Issue #551] “DRM permission”:
 
    “DRM permission” is another bug we chose to work on. In previous research, we looked at a couple of issues and familiarize ourselves with this issue early on. Working on this issue also gives a better understanding of what happens after intent execution, and how we can connect to other websites (in addition to youtube and spotify) which will be beneficial to development in the future. Effort : since this interacts with third-party services, it doesn’t require full understanding of the core app. As a result, it would not require understanding minute details in the architecture. The risk is that we can’t guarantee that the bug is only contained in parts we first perceived such as the music player components and may be caused by something more fundamental, such as how they detect the various buttons and elements.
-
-
-
-
-
-
-
-
-
 
 
 
