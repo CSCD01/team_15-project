@@ -2,7 +2,7 @@
 
 ## Selected issues
 
-### Issue 1237
+### [Issue 1237](https://github.com/mozilla/firefox-voice/issues/1237)
 
 Description:
 
@@ -14,6 +14,6 @@ Why we chose:
 2.
 3.
 
-### Issue _
+### [Issue 1217](https://github.com/mozilla/firefox-voice/issues/1217)
 
 Description:
