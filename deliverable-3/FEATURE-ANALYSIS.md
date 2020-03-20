@@ -10,10 +10,21 @@ Why we chose:
 
 #### Acceptance test
 
-##### Unit testing for indexeddb can be done with jest
+##### Unit testing for indexeddb example
 ```
+test("compiler", () => {
+  expect(
+    compile(
+      "(bring me | take me | go | navigate | show me | open) (to | find |) (page |) [query]"
+    ).toString()
+  ).toBe(
+    'FullPhrase("(bring me | take me | go | navigate | show me | open) (to | find | ) (page | ) [query:+]")'
+  );
+});
+```
+if existing tests pass, the indexddb does not break any functionality.
+End-to-end test can demonstrate if indexeddb behaves as desired.
 
-```
 ##### Besides unit testing, end-to-end test is also used to verify validity.
 1. install firefox nightly, 
 
@@ -23,11 +34,10 @@ Why we chose:
 ```
 about:devtools-toolbox?type=extension&id=firefox-voice%40mozilla.org
 ```
-4. On the left bar, select
+4. On the left bar, select the following to see the past voice command history.
 ```
 Indexed db -> moz-extension -> voice(default) -> utterance
-```
-to see the past history.
+``` 
 
 5. From here we can test if all of our utterances are recorded correctly.
 ### [Issue 1217](https://github.com/mozilla/firefox-voice/issues/1217)
