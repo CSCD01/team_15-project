@@ -22,14 +22,21 @@ Note: The sequence diagrams for the additional database methods (get, update) wi
 
 #### Reasons for selecting this issue:
 
-We selected ["Save history #1237"](https://github.com/mozilla/firefox-voice/issues/1237) to implement for this deliverable because it is a ***substantial but manageable*** feature for the Firefox-Voice project. Originally, this project stores users' voice command history in an array as a temporary measure,
-But the current design is not ideal, as users' voice command history is erased every time the user terminate or restart the process.
+We selected ["Save history #1237"](https://github.com/mozilla/firefox-voice/issues/1237) to implement for this deliverable because it is a ***substantial but manageable*** feature for the Firefox-Voice project. Originally, this project stores users' voice command history in an array as a temporary measure.
+But the current design is not ideal, as users' voice command history is erased each time users terminate or restart the Firefox Voice process.
 Therefore, the project owner wants to migrate the data to IndexedDB, a somewhat persistent storage such that the history data could be retrieved and display to the users on the browser in the future. 
 
-It is a substantial feature to implement because it: 1) requires us to understand the flow of **intents** in the project (more carefully and in more detail) and how it can be made to communicate with IndexedDB, 2) requires us to fully understand the IndexedDB API's, and 3) requires us to have the ability to develop new code such that it combines the existing code together well with this new component of the project. Lastly, considering the fact that this project is very likely to store other data besides history in the near future,
-the framework we develop to interact with IndexedDB has to be as generic as while also cater to the current needs of the project. 
+It is a substantial feature to implement because:
+1. it will be a brand new feature in the project,
+2. it requires us to understand the flow of **intents** in the project (more carefully and in more detail) so we can make design and architectural decisions on
+how it should interact with IndexedDB,
+3. it requires us to fully understand the IndexedDB API's, and
+4. it requires us to write code that is compatible with the exisiting code-base.
 
-This is also a managebale task for all of us as this issue involves more closely with the **backend** code, which we all have experiecne from courses such as CSCB07, CSCB09, CSCC09, CSCC01 and our unique co-op experiences.
+Lastly, considering how active the Firefox-Voice project is, there will likely be be additional requirements for managing user data (e.g., store other data besides history)
+we need to make our IndexedDB framework as generic as possible while catering to the current needs of the project. Thus, we believe this is a substantial issue for our team. 
+
+Moreover, this is also a managebale task for all of us as this issue involves more closely with the **backend** code, which we all have experiecne from courses such as CSCB07, CSCB09, CSCC09, CSCC01 and our unique co-op experiences.
 
 All in all, we believe this issue will be fun and challenging at the same time to contribute something that has a great impact on the project’s architecture. 
 
