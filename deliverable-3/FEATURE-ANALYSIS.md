@@ -130,5 +130,16 @@ On detection of the keyword in `wakeword.js`, we need to get the corresponding a
 
 #### Architecture (Revisted)
 
+After our issue investigations (in particular, issue 1237) for Deliverable 3, we realized the **database** is an important component that should be added to our original architectural model to make our UML more complete. With the new addition of the database component we made the following changes to our UML diagram:
+
+1. We seperated the **settings** responsibilty from the `Background Hub` into its own component as we realized the `setting.js` is a more stand-alone piece of code
+that solely handles the responsibilty of managing the user settings and make two-way communications between the `User Settings Views` and the database.
+2. We generalized the `Onboarding` component into the `User Settings View` together with `Options`, as this is where users have access to manage their settings.
+3. We added an arrow from the `Background Hub` to the Database component as that's the place where voice command history is saved.
+
+With the newly polished UML diagram, we can see that the Database, `User Settings Views`, and `Settings` can be considered an instance of the Model-View-Controller (MVC) model.
+Where, the database holds the current information about user settings, thus the "model"; the `User Settings Views` component is where the user is able to see and make changes
+to their settings, thus the "view"; and lastly, the `Settings` component acts as the controller that either retrieves information for the view or is in charge of making 
+changes to the database, thus the "controller".
 
 ![Updated Run Command Sequence Diagram](./images/architecture.png)
