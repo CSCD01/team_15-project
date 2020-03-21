@@ -23,7 +23,7 @@ Note: The sequence diagrams for the additional database methods (get, update) wi
 #### Reasons for selecting this issue:
 
 We selected ["Save history #1237"](https://github.com/mozilla/firefox-voice/issues/1237) to implement for this deliverable because it is a ***substantial but manageable*** feature for the Firefox-Voice project. Originally, this project stores users' voice command history in an array as a temporary measure,
-however, the problem is the user's command history is erased every time the user terminate or restart the process. So its current design is not ideal.
+But the current design is not ideal, as users' voice command history is erased every time the user terminate or restart the process.
 Therefore, the project owner wants to migrate the data to IndexedDB, a somewhat persistent storage such that the history data could be retrieved and display to the users on the browser in the future. 
 
 It is a substantial feature to implement because it: 1) requires us to understand the flow of **intents** in the project (more carefully and in more detail) and how it can be made to communicate with IndexedDB, 2) requires us to fully understand the IndexedDB API's, and 3) requires us to have the ability to develop new code such that it combines the existing code together well with this new component of the project. Lastly, considering the fact that this project is very likely to store other data besides history in the near future,
