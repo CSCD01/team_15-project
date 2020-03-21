@@ -13,7 +13,8 @@ Currently, when using the firefox voice extension, there does not exist an inter
 
 2. ```extension/history.js``` - (NEW) This file will have to be created which will contain functions that are responsible for communicating with the history DB within IndexedDB. This will include various queries such as adding, getting and updating which we can call via the ```intentRunner.js``` script.
 
-**Architectural Change**: To demonstrate the change that will occur with the implementation of this issue, we have decided to modify the existing sequence diagram from deliverable 1 that detailed the process of a user saying a command into the extension. In the highlighted area, we have shown the additional components and functions that will be executed as a result of this change. Once receiving the command from the user, the intent runner will utilize the history database API which adds the entry of the command to the database. Observe that before this change, there was no major interaction with a database in this sequence.
+#### Architectural Change:
+To demonstrate the change that will occur with the implementation of this issue, we have decided to modify the existing sequence diagram from deliverable 1 that detailed the process of a user saying a command into the extension. In the highlighted area, we have shown the additional components and functions that will be executed as a result of this change. Once receiving the command from the user, the intent runner will utilize the history database API which adds the entry of the command to the database. Observe that before this change, there was no major interaction with a database in this sequence.
 
 ![Updated Run Command Sequence Diagram](./images/firefox-voice-sequence.png)
 
@@ -33,12 +34,50 @@ how it should interact with IndexedDB,
 3. it requires us to fully understand the IndexedDB API's, and
 4. it requires us to write code that is compatible with the exisiting code-base.
 
-Lastly, considering how active the Firefox-Voice project is, there will likely be be additional requirements for managing user data (e.g., store other data besides history)
-we need to make our IndexedDB framework as generic as possible while catering to the current needs of the project. Thus, we believe this is a substantial issue for our team. 
+In addition, considering how active the Firefox-Voice project is, there will likely be additional requirements for managing user data (e.g., store other data besides history)
+in the near future. As such, we need to make our IndexedDB framework as generic as possible while catering to the current needs of the project. Thus, we believe this is a substantial issue for our team. 
 
-Moreover, this is also a managebale task for all of us as this issue involves more closely with the **backend** code, which we all have experiecne from courses such as CSCB07, CSCB09, CSCC09, CSCC01 and our unique co-op experiences.
+Moreover, this is also a managebale task for all of us as this issue involves more closely with the **backend** code, which we all have experiecne from courses such as CSCB07, 
+CSCB09, CSCC09, CSCC01 and our unique co-op experiences.
 
-All in all, we believe this issue will be fun and challenging at the same time to contribute something that has a great impact on the project’s architecture. 
+All in all, we believe contributing to this issue will have a great impact on the project as a whole. It will be a fun and challening experience for all of us!
+
+#### Implementation Plans
+
+- We will create a file called `history.js` under the "extension" folder. In the `history.js` file, we will develop an indexedDB framework for this project to create a data table and manage their data. Therefore, we will implement a class called Database with the following methods: 
+    1. createTable(tableName, primaryKey, version)
+
+        a. Create a new table with a table name and specify the primary key and version for the table
+
+    2.	get(primaryKey, TBName) 
+
+        a. Return an entry from a specific table using primary key
+
+    3. getAll(tableName, sortingDirection)
+
+        a. Return all entries from a specific table in an order that user requested
+
+        b. If the user did not specify a sorting order, the default order would be descending or most recent first when the primary key is timestamp. 
+
+        c. For example, when a user wants to check all their voice command history, this method will be called. 
+
+    4. add(obj, TBName) 
+
+        a. Add an object entry to a specific table 
+
+        b. For example, this method will be called every time automatically when a user uses the firefox voice extension by either typing or saying their command 
+        
+    5. delete(primaryKey, TBName) 
+
+        a. Delete an entry from a specific table based on its primary key
+
+        b. For example, this method will be called when a user wants to delete a specific voice command history from the database
+
+    6. clearAll(TBName)
+
+        a. Delete all the content of the table (i.e when users want to clear all their voice command history)
+
+- In `background/intentRunner.js` file, we will create a table to store all the user’s voice command. Under the `addIntentHistory()` method, we will add the command history entry to the table we created on the same file. 
 
 #### Acceptance test
 
