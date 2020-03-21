@@ -4,7 +4,18 @@
 
 ### [Issue 1237](https://github.com/mozilla/firefox-voice/issues/1237)
 
-Description:
+**Description**: Currently, when using the firefox voice extension, there does not exist an internal way of viewing a user's past commands history. Additionally, this means that the user themself has no way of seeing their own history. This issue attempts to take on the first part of saving the users history by setting up an IndexedDB database. This will be achieved by saving the users command history as they use any command on the extension. This issue requires a substantial architectural change since all other parts of the repo that utilize the browsers storage use local storage rather than IndexedDB. This will also build the groundwork of the history feature for future issues such as creating the UI components that will show the history to the user.
+
+**Files to be changed/added**:
+
+1. ```extension/background/intentRunner.js``` - This file that lives within the background hub, is responsible for beginning the execution of voice/text commands from the user. Since this is the entry point for the commands, modifying the ```runIntent()``` function which calls the ```addIntentHistory()``` function will allow for adding the command to the DB whether it is successful or fails.
+
+2. ```extension/history.js``` - (NEW) This file will have to be created which will contain functions that are responsible for communicating with the history DB within IndexedDB. This will include various queries such as adding, getting and updating which we can call via the ```intentRunner.js``` script.
+
+**Architectural Change**: To demonstrate the change that will occur with the implementation of this issue, we have decided to modify the existing sequence diagram from deliverable 1 that detailed the process of a user saying a command into the extension. In the highlighted area, we have shown the additional components and functions that will be executed as a result of this change. Once receiving the command from the user, the intent runner will utilize the history database API which adds the entry of the command to the database. Observe that before this change, there was no major interaction with a database in this sequence.
+
+Note: The sequence diagrams for the additional database methods (get, update) will be very similar to the highlighted area in the above sequence diagram.
+
 
 Why we chose:
 
@@ -43,7 +54,7 @@ Indexed db -> moz-extension -> voice(default) -> utterance
 
 ### [Issue 1118](https://github.com/mozilla/firefox-voice/issues/1118)
 
-Description: This issue involves adding support to alias wakewords to start the recorder and perform an action.
+**Description**: This issue involves adding support to alias wakewords to start the recorder and perform an action.
 
 Currently, the extension has support for a number of wakewords (similar to "Hey Google" or "Hey Siri"). If enabled, when a user says one of the supported wakewords, the extension is triggered and it begins recording the user's voice to pass as an intent.
 
