@@ -25,7 +25,7 @@ Note: The sequence diagrams for the additional database methods (get, update) wi
 
 We selected ["Save history #1237"](https://github.com/mozilla/firefox-voice/issues/1237) to implement for this deliverable because it is a ***substantial but manageable*** feature for the Firefox-Voice project. Originally, this project stores users' voice command history in an array as a temporary measure.
 But the current design is not ideal, as users' voice command history is erased each time users terminate or restart the Firefox Voice process.
-Therefore, the project owner wants to migrate the data to IndexedDB, a somewhat persistent storage such that the history data could be retrieved and display to the users on the browser in the future. 
+Therefore, the project owner wants to migrate the data to IndexedDB, a somewhat persistent storage such that the history data could be retrieved and display to the users on the browser in the future.
 
 It is a substantial feature to implement because:
 1. it will be a brand new feature in the project,
@@ -35,21 +35,21 @@ how it should interact with IndexedDB,
 4. it requires us to write code that is compatible with the exisiting code-base.
 
 In addition, considering how active the Firefox-Voice project is, there will likely be additional requirements for managing user data (e.g., store other data besides history)
-in the near future. As such, we need to make our IndexedDB framework as generic as possible while catering to the current needs of the project. Thus, we believe this is a substantial issue for our team. 
+in the near future. As such, we need to make our IndexedDB framework as generic as possible while catering to the current needs of the project. Thus, we believe this is a substantial issue for our team.
 
-Moreover, this is also a managebale task for all of us as this issue involves more closely with the **backend** code, which we all have experiecne from courses such as CSCB07, 
+Moreover, this is also a managebale task for all of us as this issue involves more closely with the **backend** code, which we all have experiecne from courses such as CSCB07,
 CSCB09, CSCC09, CSCC01 and our unique co-op experiences.
 
 All in all, we believe contributing to this issue will have a great impact on the project as a whole. It will be a fun and challening experience for all of us!
 
 #### Implementation Plans
 
-- We will create a file called `history.js` under the "extension" folder. In the `history.js` file, we will develop an indexedDB framework for this project to create a data table and manage their data. Therefore, we will implement a class called Database with the following methods: 
+- We will create a file called `history.js` under the "extension" folder. In the `history.js` file, we will develop an indexedDB framework for this project to create a data table and manage their data. Therefore, we will implement a class called Database with the following methods:
     1. createTable(tableName, primaryKey, version)
 
         a. Create a new table with a table name and specify the primary key and version for the table
 
-    2.	get(primaryKey, TBName) 
+    2.	get(primaryKey, TBName)
 
         a. Return an entry from a specific table using primary key
 
@@ -57,17 +57,17 @@ All in all, we believe contributing to this issue will have a great impact on th
 
         a. Return all entries from a specific table in an order that user requested
 
-        b. If the user did not specify a sorting order, the default order would be descending or most recent first when the primary key is timestamp. 
+        b. If the user did not specify a sorting order, the default order would be descending or most recent first when the primary key is timestamp.
 
-        c. For example, when a user wants to check all their voice command history, this method will be called. 
+        c. For example, when a user wants to check all their voice command history, this method will be called.
 
-    4. add(obj, TBName) 
+    4. add(obj, TBName)
 
-        a. Add an object entry to a specific table 
+        a. Add an object entry to a specific table
 
-        b. For example, this method will be called every time automatically when a user uses the firefox voice extension by either typing or saying their command 
-        
-    5. delete(primaryKey, TBName) 
+        b. For example, this method will be called every time automatically when a user uses the firefox voice extension by either typing or saying their command
+
+    5. delete(primaryKey, TBName)
 
         a. Delete an entry from a specific table based on its primary key
 
@@ -77,12 +77,12 @@ All in all, we believe contributing to this issue will have a great impact on th
 
         a. Delete all the content of the table (i.e when users want to clear all their voice command history)
 
-- In `background/intentRunner.js` file, we will create a table to store all the user’s voice command. Under the `addIntentHistory()` method, we will add the command history entry to the table we created on the same file. 
+- In `background/intentRunner.js` file, we will create a table to store all the user’s voice command. Under the `addIntentHistory()` method, we will add the command history entry to the table we created on the same file.
 
 #### Acceptance test
 
 ##### Unit testing for indexeddb example
-```
+```js
 test("compiler", () => {
   expect(
     compile(
@@ -129,9 +129,11 @@ This issue would enable users to assign an action to a wakeword. This would allo
 
 To implement this feature, we will need to modify `optionsView.jsx` to allow the user to configure wakewords with actions. For example, the user can type out an action to be performed and assign it to a wakeword.
 
-Then, we would have to update the user's settings in the database/`localStorage` so that the new wakeword is persistent (`optionsView.jsx`).
+Then, we would have to update the user's settings in the database/`localStorage` so that the new wakeword is persistent (`optionsView.jsx`) across restarts.
 
-On detection of the keyword in `wakeword.js`, we need to get the corresponding action from `localStorage` and pass it to `intentRunner.js`.
+On detection of the keyword in `wakeword.js`, we need to get the corresponding action from `localStorage` and notify the background script (`main.js`) that an intent has to be run and pass the intent data (i.e. the action to perform).
+
+![UML of implementation](./images/wakeword.png)
 
 #### Architecture (Revisted)
 
@@ -144,7 +146,7 @@ that solely handles the responsibilty of managing the user settings and make two
 
 With the newly polished UML diagram, we can see that the Database, `User Settings Views`, and `Settings` can be considered an instance of the Model-View-Controller (MVC) model.
 Where, the database holds the current information about user settings, thus the "model"; the `User Settings Views` component is where the user is able to see and make changes
-to their settings, thus the "view"; and lastly, the `Settings` component acts as the controller that either retrieves information for the view or is in charge of making 
+to their settings, thus the "view"; and lastly, the `Settings` component acts as the controller that either retrieves information for the view or is in charge of making
 changes to the database, thus the "controller".
 
 ![Updated Run Command Sequence Diagram](./images/architecture.png)
