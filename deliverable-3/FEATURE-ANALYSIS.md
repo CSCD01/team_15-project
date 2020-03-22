@@ -5,13 +5,13 @@
 ### [Issue 1237](https://github.com/mozilla/firefox-voice/issues/1237)
 
 #### Description:
-Currently, when using the firefox voice extension, there does not exist an internal way of viewing a user's past commands history. Additionally, this means that the user themself has no way of seeing their own history. This issue attempts to take on the first part of saving the users history by setting up an IndexedDB database. This will be achieved by saving the users command history as they use any command on the extension. This issue requires a substantial architectural change since all other parts of the repo that utilize the browsers storage use local storage rather than IndexedDB. This will also build the groundwork of the history feature for future issues such as creating the UI components that will show the history to the user.
+Currently, when using the Firefox Voice extension, there does not exist an internal tool to view a user's history of commands. This issue attempts to address the issue by by saving the user's history in an IndexedDB database. This will be achieved by saving the user's commands that are inputted to the extension. This issue requires a substantial architectural change since all other parts of the repo that store data use localStorage instead of IndexedDB. This will also create the framework of the history feature for future issues such as creating an UI for the user to view history elegantly.
 
 #### Files to be changed/added:
 
-1. ```extension/background/intentRunner.js``` - This file that lives within the background hub, is responsible for beginning the execution of voice/text commands from the user. Since this is the entry point for the commands, modifying the ```runIntent()``` function which calls the ```addIntentHistory()``` function will allow for adding the command to the DB whether it is successful or fails.
+1. `extension/background/intentRunner.js` - This file that lives within the background hub, is responsible for beginning the execution of voice/text commands from the user. Since this is the entry point for the commands, modifying the `runIntent()` function which calls the `addIntentHistory()` function will allow for adding the command to the DB whether it is successful or fails.
 
-2. ```extension/history.js``` - (NEW) This file will have to be created which will contain functions that are responsible for communicating with the history DB within IndexedDB. This will include various queries such as adding, getting and updating which we can call via the ```intentRunner.js``` script.
+2. `extension/history.js` - (NEW) This file will have to be created which will contain functions that are responsible for communicating with the history DB within IndexedDB. This will include various queries such as adding, getting and updating which we can call via the `intentRunner.js` script.
 
 #### Architectural Change:
 To demonstrate the change that will occur with the implementation of this issue, we have decided to modify the existing sequence diagram from deliverable 1 that detailed the process of a user saying a command into the extension. In the highlighted area, we have shown the additional components and functions that will be executed as a result of this change. Once receiving the command from the user, the intent runner will utilize the history database API which adds the entry of the command to the database. Observe that before this change, there was no major interaction with a database in this sequence.
@@ -45,15 +45,15 @@ All in all, we believe contributing to this issue will have a great impact on th
 #### Implementation Plans
 
 - We will create a file called `history.js` under the "extension" folder. In the `history.js` file, we will develop an indexedDB framework for this project to create a data table and manage their data. Therefore, we will implement a class called Database with the following methods:
-    1. createTable(tableName, primaryKey, version)
+    1. `createTable(tbName, primaryKey, version)`
 
         a. Create a new table with a table name and specify the primary key and version for the table
 
-    2.	get(primaryKey, TBName)
+    2. `get(tbName, primaryKey)`
 
         a. Return an entry from a specific table using primary key
 
-    3. getAll(tableName, sortingDirection)
+    3. `getAll(tbName, sortingDirection)`
 
         a. Return all entries from a specific table in an order that user requested
 
@@ -61,19 +61,19 @@ All in all, we believe contributing to this issue will have a great impact on th
 
         c. For example, when a user wants to check all their voice command history, this method will be called.
 
-    4. add(obj, TBName)
+    4. `add(tbName, obj)`
 
         a. Add an object entry to a specific table
 
         b. For example, this method will be called every time automatically when a user uses the firefox voice extension by either typing or saying their command
 
-    5. delete(primaryKey, TBName)
+    5. `delete(tbName, primaryKey)`
 
         a. Delete an entry from a specific table based on its primary key
 
         b. For example, this method will be called when a user wants to delete a specific voice command history from the database
 
-    6. clearAll(TBName)
+    6. `clearAll(tbName)`
 
         a. Delete all the content of the table (i.e when users want to clear all their voice command history)
 
@@ -81,7 +81,7 @@ All in all, we believe contributing to this issue will have a great impact on th
 
 #### Acceptance test
 
-##### Unit testing for indexeddb example
+##### Unit testing for IndexedDB example
 ```js
 test("compiler", () => {
   expect(
@@ -93,29 +93,21 @@ test("compiler", () => {
   );
 });
 ```
-if existing tests pass, the indexddb does not break any functionality.
-End-to-end test can demonstrate if indexeddb behaves as desired.
+If existing tests pass, the IndexedDb does not break any functionality.
+End-to-end test can demonstrate if IndexedDb behaves as desired.
 
-##### Besides unit testing, end-to-end test is also used to verify validity.
-1. install firefox nightly,
+##### End-to-end testing
+1. Install Firefox Nightly
 
-2. clone the repo and run ```npm install``` and ```npm start``` in the project root directory
+2. Clone the repo and run `npm install` and `npm start` in the project root directory
 
-3. paste the following into firefox nightly address bar
-```
-about:devtools-toolbox?type=extension&id=firefox-voice%40mozilla.org
-```
-4. On the left bar, select the following to see the past voice command history.
-```
-Indexed db -> moz-extension -> voice(default) -> utterance
-```
+3. Paste the following into the address bar: `about:devtools-toolbox?type=extension&id=firefox-voice%40mozilla.org`
 
-5. From here we can test if all of our utterances are recorded correctly.
+4. On the left bar, select the following to see the past voice command history `Indexed db -> moz-extension -> voice(default) -> utterance`
 
-6. Try out the voice extension by asking it to look up something for us
+6. Use the voice extension by typing or speaking an action
 
-7. Go back to the inspection tab in step 4, to see your newly voice command being added into the voice history in indexedDB
-
+7. Go back to the inspection tab in step 4, to find the voice command in IndexedDB
 
 ### [Issue 1118](https://github.com/mozilla/firefox-voice/issues/1118)
 
@@ -127,7 +119,7 @@ This issue would enable users to assign an action to a wakeword. This would allo
 
 #### Designs of implementation
 
-To implement this feature, we will need to modify `optionsView.jsx` to allow the user to configure wakewords with actions. For example, the user can type out an action to be performed and assign it to a wakeword.
+To implement this feature, we will need to add a UI component to `optionsView.jsx` so the user can configure wakewords with actions. For example, the user can type out an action to be performed and assign it to a wakeword, by placing it next to the wakeword.
 
 Then, we would have to update the user's settings in the database/`localStorage` so that the new wakeword is persistent (`optionsView.jsx`) across restarts.
 
