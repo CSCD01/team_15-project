@@ -112,6 +112,11 @@ Indexed db -> moz-extension -> voice(default) -> utterance
 
 5. From here we can test if all of our utterances are recorded correctly.
 
+6. Try out the voice extension by asking it to look up something for us
+
+7. Go back to the inspection tab in step 4, to see your newly voice command being added into the voice history in indexedDB
+
+
 ### [Issue 1118](https://github.com/mozilla/firefox-voice/issues/1118)
 
 **Description**: This issue involves adding support to alias wakewords to start the recorder and perform an action.
