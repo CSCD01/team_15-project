@@ -1,5 +1,9 @@
 # Deliverable 3 Firefox Voice Feature Analysis
 
+
+#### Trello Link: https://trello.com/b/w2r6G9Jd/deliverable-3 this board records our activities during the project.
+
+
 ## Selected issues
 
 ### [Issue 1237](https://github.com/mozilla/firefox-voice/issues/1237)
