@@ -133,3 +133,9 @@ Due to the nature of using a history database with `IndexedDB`, we would need to
 The tests can be found [here](https://github.com/mozilla/firefox-voice/blob/3452672848bf55f96f91966679d05813daefdd03/extension/options/history/history.test.js). Running the tests within the repo can be performed by using `npm run jest` which will run all jest test files.
 
 The approach we took to ensure that all API methods were working correctly was to create a test database and perform a series of the available methods while using `Jest` to check the intended results.
+
+## Software Development Process
+
+The first step we took to tackle this deliverable was to create and assign new cards on the `To Do` section of our Trello board by having a group meeting and deciding who would be working on what. The items that we distributed during this meeting included implementation for history database API, implementation for history UI and creation of the unit tests. After this point, the group would informally meet online every 3 days to address any concerns that other group members may have had.
+
+Because implementation correctness is so crucial as we are contributing to an open source project, we decided that all group members must individually review the implementation of any work that was done. This means that once a group member has completed a task, they must move the card from `Doing` to `Review` and assign all other group members on the Trello board. This involved reviewing and commenting on the PR for each implementation card.
