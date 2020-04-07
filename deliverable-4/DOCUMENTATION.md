@@ -122,7 +122,9 @@ In comparison with the planning, there are a few changes in the actual implement
 
 ## Acceptance Tests
 
-WIP
+The package `fake-indexeddb` needs to be installed to test the indexed db.
+It is used to demonstrate the newly implementedthe api works.
+
 
 ## Unit Tests
 
