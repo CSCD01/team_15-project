@@ -17,7 +17,10 @@ through the listener pop-up window.
 The users can then visit the `history` tab by first clicking 
 the gear icon followed by the history icon. 
 
-![Listener](./images/listener.png)
+<p align="center">
+  <img align="center" src="./images/listener.png" width="400">
+</p>
+
 
 The history tab shows the Voice History table 
 which shows the corresponding phrase ordered by most recent time.
