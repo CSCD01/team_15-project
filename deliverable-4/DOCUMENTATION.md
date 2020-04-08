@@ -128,10 +128,6 @@ The `HistoryTable` component contains the logic of the user interaction such as 
 
 ## Acceptance Tests
 
-The package `fake-indexeddb` needs to be installed to test the indexed db.
-It is used to demonstrate the newly implementedthe api works.
-
-
 ##### End-to-end testing for adding history
 1. Install Firefox Nightly
 
