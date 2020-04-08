@@ -126,6 +126,32 @@ The package `fake-indexeddb` needs to be installed to test the indexed db.
 It is used to demonstrate the newly implementedthe api works.
 
 
+##### End-to-end testing for adding history
+1. Install Firefox Nightly
+
+2. Clone the repo and run `npm install` and `npm start` in the project root directory
+
+3. Paste the following into the address bar: `about:devtools-toolbox?type=extension&id=firefox-voice%40mozilla.org`
+
+4. On the left bar, select the following to see the past voice command history `Indexed db -> moz-extension -> voice(default) -> utterance`
+
+6. Use the voice extension by typing or speaking an action
+
+7. Go back to the inspection tab in step 4, to find the voice command in IndexedDB
+
+
+Besides this, the new feature to delete a history entry can also be checked
+##### End-to-end testing for deleting history
+
+1. Issue a few commands in the browser
+
+2. Paste the following into the address bar: `about:devtools-toolbox?type=extension&id=firefox-voice%40mozilla.org` to see the commands issued.
+
+3. User can either delete one entry or all entries.
+
+4. Changes are reflected in the history tab.
+
+
 ## Unit Tests
 
 Due to the nature of using a history database with `IndexedDB`, we would need to find a way to mock the database within the scope of the unit tests. To do this we used an external dependency `fake-indexeddb` which would provide an in-memory implementation of `IndexedDB` which normally existed within the browser. This would allow us to test all functions of our history database API. Addtionally, Firefox Voice uses `Jest` in some areas to test various important features. So, we decided to also use `Jest` as it provides a simplistic and intuitive way to compare results.
