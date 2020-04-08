@@ -139,3 +139,16 @@ The approach we took to ensure that all API methods were working correctly was t
 The first step we took to tackle this deliverable was to create and assign new cards on the `To Do` section of our Trello board by having a group meeting and deciding who would be working on what. The items that we distributed during this meeting included implementation for history database API, implementation for history UI and creation of the unit tests. After this point, the group would informally meet online every 3 days to address any concerns that other group members may have had.
 
 Because implementation correctness is so crucial as we are contributing to an open source project, we decided that all group members must individually review the implementation of any work that was done. This means that once a group member has completed a task, they must move the card from `Doing` to `Review` and assign all other group members on the Trello board. This involved reviewing and commenting on the PR for each implementation card.
+
+The Kanban software development process allowed flexibility and agility in our team. Each of us responsibly pulled tickets on our 
+`Trello` board, solving problems by focusing on bottlenecks and 
+ensuring a smooth flow through the traffic our tickets.
+When we were implementing the Firefox-Voice History issue,
+we first broke down the issue into its two major components 
+--- the API and the UI. We strategically broke down the task into smaller, more manageable pieces such that each piece can be dealt 
+with by one or two members on the team. Tasks were pulled following 
+our `Discord` disucsions and the development, testing, reviewing of 
+the issues were done according to plan. At all times, we are able to
+**visually** monitor the jobs assigned to each individual and the 
+bottleneck of our workflow. Working with Kanban helped us enormously 
+with our planning, execution, and adjustments to the requirements of the ticket.
