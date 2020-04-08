@@ -133,13 +133,13 @@ The `HistoryTable` component contains the logic of the user interaction such as 
 
 2. Clone the repo and run `npm install` and `npm start` in the project root directory
 
-3. Paste the following into the address bar: `about:devtools-toolbox?type=extension&id=firefox-voice%40mozilla.org`
+3. Issue a command
 
-4. On the left bar, select the following to see the past voice command history `Indexed db -> moz-extension -> voice(default) -> utterance`
+4. Click on the gear icon of voice popup and go to the setting page of firefox voice
 
-6. Use the voice extension by typing or speaking an action
+5. On the left bar, select history tab
 
-7. Go back to the inspection tab in step 4, to find the voice command in IndexedDB
+6. voice command in IndexedDB is shown
 
 
 Besides this, the new feature to delete a history entry can also be checked
@@ -147,7 +147,7 @@ Besides this, the new feature to delete a history entry can also be checked
 
 1. Issue a few commands in the browser
 
-2. Paste the following into the address bar: `about:devtools-toolbox?type=extension&id=firefox-voice%40mozilla.org` to see the commands issued.
+2. Click on the gear icon of voice popup and go to the setting page of firefox voice
 
 3. User can either delete one entry or all entries.
 
