@@ -147,7 +147,7 @@ When we were implementing the Firefox-Voice History issue,
 we first broke down the issue into its two major components 
 --- the API and the UI. We strategically broke down the task into smaller, more manageable pieces such that each piece can be dealt 
 with by one or two members on the team. Tasks were pulled following 
-our `Discord` disucsions and the development, testing, reviewing of 
+our `Discord` discussions and the development, testing, reviewing of 
 the issues were done according to plan. At all times, we are able to
 **visually** monitor the jobs assigned to each individual and the 
 bottleneck of our workflow. Working with Kanban helped us enormously 
