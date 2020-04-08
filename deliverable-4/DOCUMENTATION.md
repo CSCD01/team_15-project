@@ -6,119 +6,123 @@ Our feature comprises of two issues, the [architecture (#1237)](https://github.c
 
 ## Firefox Voice History User Guide
 
-This feature intends to enable the Firefox-Voice extension to
+This feature intends to enable the Firefox Voice extension to
 keep track of user's command history to the extension.
 
-Users can now find a **new** tab under the settings page called
-`history` that allows them to view all previous voice commands.
+Users now have a **new** tab under the options page called
+`History` that allows them to view all previous voice commands.
 
-Same as always, Firefox-Voice will process user commands
-through the listener pop-up window.
-The users can then visit the `history` tab by first clicking
-the gear icon followed by the history icon.
+As usual, running the Firefox Voice extension will process user commands
+through the listener pop-up window. They can access the options by clicking the gear icon that appears in the extension's popup, as found below.
 
 <p align="center">
-  <img align="center" src="./images/listener.png" width="400">
+  <img src="./images/listener.png" width="400">
 </p>
 
+The users can visit the `History` tab by clicking the history icon, which shows the Voice History table containing users' inputs into the extension, sorted by the most recent command.
 
-The history tab shows the Voice History table
-which shows the corresponding phrase ordered by most recent time.
+They can navigate to different pages to view the history of older commands via the pagination buttons and they can delete all the history via the delete button at the top of the page.
 
 ![History tab](./images/example.png)
 
 ## Firefox Voice History Documentation
 
- We created a file called history.js under the "extension" folder. In the history.js file, we developed an indexedDB framework for this project to create a data table and manage their data. Therefore, we implemented a class called Database with the following methods:
+We created a file called `history.js` under the `extension` folder. In the `history.js` file, we developed an `IndexedDB` framework for this project to create a data table and manage their data. Therefore, we implemented a class called `Database` with the following methods:
 
- - `createTable(tbName, primaryKey, version)`
-    - **Description**: create a new table with a table name and specify the primary key and version for the table
-     -   **Parameters**:
-	     -  `tbName`:
-		     - Type: String
-		     - Description: the name of the table that the user is going to create
-	     - `primaryKey`:
-		     - Type: String
-		     - Description: the primary key of the table
-	     - `version`:
-		     -  Type: Integer
-		     -  Description: the version number of the table
-     - **Return**:
-	     - Returns a promise
+- `createTable(tbName, primaryKey, version)`
+  - **Description**: create a new table with a table name and specify the primary key and version for the table
+    - **Parameters**:
+      - `tbName`:
+        - Type: String
+        - Description: the name of the table that the user is going to create
+      - `primaryKey`:
+        - Type: String
+        - Description: the primary key of the table
+      - `version`:
+        -  Type: Integer
+        -  Description: the version number of the table
+    - **Return**:
+      - Returns a `Promise<Database>`
 
- - `get(dbName, tbName, primaryKey)`
-    - **Description**: get a specific entry of the table based on the given primary key
-     -   **Parameters**:
-	     -  `dbName`:
-		     - Type: String
-		     - Description: the name of the table that the user is going to create
-	     - 	 `tbName`:
-		     - Type: String
-		     - Description: the name of the table that the user is going to create
-	     - `primaryKey`:
-		     - Type: String
-		     - Description: the primary key of the table
-     - **Return**:
-	     - Returns an entry from a specific table based on the given primary key
+- `get(dbName, tbName, primaryKey)`
+  - **Description**: get a specific entry of the table based on the given primary key
+    - **Parameters**:
+      - `dbName`:
+        - Type: String
+        - Description: the name of the table that the user is going to create
+      - `tbName`:
+        - Type: String
+        - Description: the name of the table that the user is going to create
+      - `primaryKey`:
+        - Type: String
+        - Description: the primary key of the table
+    - **Return**:
+      - Returns `Promise` that wraps an entry from a specific table based on the given primary key
 
- - `getAll(dbName, tbName, sortingDirection)`
-    - **Description**: get all entries from a specific table in an order that user requested
-     -   **Parameters**:
-	     -  `dbName`:
-		     - Type: String
-		     - Description: the name of the table that the user is going to create
-	     - 	 `tbName`:
-		     - Type: String
-		     - Description: the name of the table that the user is going to create
-	     - `sortingDirection`:
-		     - Type: String
-		     - Description: "prev" is most recent first (based on * primaryKey), "next" is the most recent last (based on primaryKey). If the user did not specify a sorting order, the default order would be descending or most recent first when the primary key is timestamp.
-     - **Return**:
-	     - all entries from a specific table in an order that user requested
+- `getAll(dbName, tbName, sortingDirection)`
+  - **Description**: get all entries from a specific table in an order that user requested
+    - **Parameters**:
+      - `dbName`:
+        - Type: String
+        - Description: the name of the table that the user is going to create
+      - `tbName`:
+        - Type: String
+        - Description: the name of the table that the user is going to create
+      - `sortingDirection`:
+        - Type: String
+        - Description: "prev" is most recent first (based on * primaryKey), "next" is the most recent last (based on primaryKey). If the user did not specify a sorting order, the default order would be descending or most recent first when the primary key is timestamp.
+    - **Return**:
+      - Returns a `Promise` that wraps a list of all entries from a specific table in an order that user requested
 
- - `add(tbName, obj)`
-    - **Description**: Add an object entry to a specific table. For example, this method will be called every time automatically when a user uses the firefox voice extension by either typing or saying their command
-     -   **Parameters**:
-	     - 	 `tbName`:
-		     - Type: String
-		     - Description: the name of the table that the user is going to create
-	     - `obj`:
-		     - Type: Object
-		     - Description: an object that we are going to insert into the table. The attribute name of this object should correspond to the table column name, and the value of the attribute will be the value under that column name in table
-     - **Return**:
-	     - Returns a promise
+- `add(tbName, obj)`
+  - **Description**: Add an object entry to a specific table. For example, this method will be called every time automatically when a user uses the firefox voice extension by either typing or saying their command
+    - **Parameters**:
+      - `tbName`:
+        - Type: String
+        - Description: the name of the table that the user is going to create
+      - `obj`:
+        - Type: Object
+        - Description: an object that we are going to insert into the table. The attribute name of this object should correspond to the table column name, and the value of the attribute will be the value under that column name in table
+    - **Return**:
+      - Returns a `Promise<null>`
 
- - `delete(dbName, tbName, primaryKey)`
-    - **Description**: Delete an entry from a specific table based on its primary key. For example, this method will be called when a user wants to delete a specific voice command history from the database
-     -   **Parameters**:
-	     -  `dbName`:
-		     - Type: String
-		     - Description: the name of the table that the user is going to create
-	     - 	 `tbName`:
-		     - Type: String
-		     - Description: the name of the table that the user is going to create
-	     - `primaryKey`:
-		     - Type: String
-		     - Description: the primary key of the table
-     - **Return**:
-	     - Returns a promise
+- `delete(dbName, tbName, primaryKey)`
+  - **Description**: Delete an entry from a specific table based on its primary key. For example, this method will be called when a user wants to delete a specific voice command history from the database
+    - **Parameters**:
+      - `dbName`:
+        - Type: String
+        - Description: the name of the table that the user is going to create
+      - `tbName`:
+        - Type: String
+        - Description: the name of the table that the user is going to create
+      - `primaryKey`:
+        - Type: String
+        - Description: the primary key of the table
+    - **Return**:
+      - Returns a `Promise<null>`
 
 
- - `clearAll(dbName, tbName)`
-    - **Description**: Delete all the content of the table (i.e when users want to clear all their voice command history)
-     -   **Parameters**:
-	     -  `dbName`:
-		     - Type: String
-		     - Description: the name of the table that the user is going to create
-	     - 	 `tbName`:
-		     - Type: String
-		     - Description: the name of the table that the user is going to create
-     - **Return**:
-	     - Returns a promise
+- `clearAll(dbName, tbName)`
+  - **Description**: Delete all the content of the table (i.e when users want to clear all their voice command history)
+    - **Parameters**:
+      - `dbName`:
+        - Type: String
+        - Description: the name of the table that the user is going to create
+      - `tbName`:
+        - Type: String
+        - Description: the name of the table that the user is going to create
+    - **Return**:
+      - Returns a `Promise<null>`
 
-In background/intentRunner.js file, we created a table to store all the user’s voice command. Under the addIntentHistory() method, we added the command history entry to the table we created on the same file.
+In `background/intentRunner.js` file, we created a table to store all the user’s voice command. Under the `addIntentHistory()` method, we added the command history entry to the table we created on the same file. This process can be seen in the highlighted portion of the following diagram.
 
-In comparison with the planning, there are a few changes in the actual implementation. First, we made some methods static in order to access them more easily without creating a new object every time we want to access data in a table. These methods are `get()`, `getAll()`, `delete()`, `clearAll()`. Second, we changed the signatures of the methods that we mentioned in the first point. Since those methods are static now, we need to pass into one more argument to indicate the database name when we use those methods.
+![Updated Run Command Sequence Diagram](./images/firefox-voice-sequence.png)
+
+Similarly, when the user wants to view or delete a command, instead of the `intentRunner.js` calling `addIntentHistory`, it would be `historyView.jsx` calling `getRows()` which calls `Database.getAll()` to retrieve all table rows.
+
+In comparison with the planning, there were a few changes in the actual implementation. After we designed the architecture, we converted some class methods to prototype functions in order to utilize the database without instantiating a temporary instance to call database methods These methods were `get()`, `getAll()`, `delete()`, `clearAll()`. Ideally, we would like to make these `static`, however due to existing linter configurations, `static` methods were not supported, so the closest alternative was to define it within the `Database` prototype itself. Consequently, we also had to change class variables to prototype variables so that prototype functions can access the necessary constants (which were the permissions of the database, `readonly` and `readwrite`).
+
+Due to the change from class methods to prototype functions, we had to change the method signatures that were initially implemented because they relied on class variables. This involved passing the database name into these functions to locate the database to connect to.
 
 __History UI__
 
@@ -168,15 +172,15 @@ The first step we took to tackle this deliverable was to create and assign new c
 
 Because implementation correctness is so crucial as we are contributing to an open source project, we decided that all group members must individually review the implementation of any work that was done. This means that once a group member has completed a task, they must move the card from `Doing` to `Review` and assign all other group members on the Trello board. This involved reviewing and commenting on the PR for each implementation card.
 
-The Kanban software development process allowed flexibility and agility in our team. Each of us responsibly pulled tickets on our 
-`Trello` board, solving problems by focusing on bottlenecks and 
+The Kanban software development process allowed flexibility and agility in our team. Each of us responsibly pulled tickets on our
+`Trello` board, solving problems by focusing on bottlenecks and
 ensuring a smooth flow through the traffic our tickets.
 When we were implementing the Firefox-Voice History issue,
-we first broke down the issue into its two major components 
---- the API and the UI. We strategically broke down the task into smaller, more manageable pieces such that each piece can be dealt 
-with by one or two members on the team. Tasks were pulled following 
-our `Discord` discussions and the development, testing, reviewing of 
+we first broke down the issue into its two major components
+--- the API and the UI. We strategically broke down the task into smaller, more manageable pieces such that each piece can be dealt
+with by one or two members on the team. Tasks were pulled following
+our `Discord` discussions and the development, testing, reviewing of
 the issues were done according to plan. At all times, we are able to
-**visually** monitor the jobs assigned to each individual and the 
-bottleneck of our workflow. Working with Kanban helped us enormously 
+**visually** monitor the jobs assigned to each individual and the
+bottleneck of our workflow. Working with Kanban helped us enormously
 with our planning, execution, and adjustments to the requirements of the ticket.
