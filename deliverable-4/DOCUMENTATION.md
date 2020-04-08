@@ -6,23 +6,23 @@ Our feature comprises of two issues, the [architecture (#1237)](https://github.c
 
 ## Firefox Voice History User Guide
 
-This feature intends to enable the Firefox-Voice extension to 
-keep track of user's command history to the extension. 
+This feature intends to enable the Firefox-Voice extension to
+keep track of user's command history to the extension.
 
-Users can now find a **new** tab under the settings page called 
+Users can now find a **new** tab under the settings page called
 `history` that allows them to view all previous voice commands.
 
 Same as always, Firefox-Voice will process user commands
 through the listener pop-up window.
-The users can then visit the `history` tab by first clicking 
-the gear icon followed by the history icon. 
+The users can then visit the `history` tab by first clicking
+the gear icon followed by the history icon.
 
 <p align="center">
   <img align="center" src="./images/listener.png" width="400">
 </p>
 
 
-The history tab shows the Voice History table 
+The history tab shows the Voice History table
 which shows the corresponding phrase ordered by most recent time.
 
 ![History tab](./images/example.png)
@@ -32,7 +32,7 @@ which shows the corresponding phrase ordered by most recent time.
  We created a file called history.js under the "extension" folder. In the history.js file, we developed an indexedDB framework for this project to create a data table and manage their data. Therefore, we implemented a class called Database with the following methods:
 
  - `createTable(tbName, primaryKey, version)`
-    - **Description**: create a new table with a table name and specify the primary key and version for the table 
+    - **Description**: create a new table with a table name and specify the primary key and version for the table
      -   **Parameters**:
 	     -  `tbName`:
 		     - Type: String
@@ -45,7 +45,7 @@ which shows the corresponding phrase ordered by most recent time.
 		     -  Description: the version number of the table
      - **Return**:
 	     - Returns a promise
-	     
+
  - `get(dbName, tbName, primaryKey)`
     - **Description**: get a specific entry of the table based on the given primary key
      -   **Parameters**:
@@ -75,7 +75,7 @@ which shows the corresponding phrase ordered by most recent time.
 		     - Description: "prev" is most recent first (based on * primaryKey), "next" is the most recent last (based on primaryKey). If the user did not specify a sorting order, the default order would be descending or most recent first when the primary key is timestamp.
      - **Return**:
 	     - all entries from a specific table in an order that user requested
-	     
+
  - `add(tbName, obj)`
     - **Description**: Add an object entry to a specific table. For example, this method will be called every time automatically when a user uses the firefox voice extension by either typing or saying their command
      -   **Parameters**:
@@ -118,7 +118,13 @@ which shows the corresponding phrase ordered by most recent time.
 
 In background/intentRunner.js file, we created a table to store all the user’s voice command. Under the addIntentHistory() method, we added the command history entry to the table we created on the same file.
 
-In comparison with the planning, there are a few changes in the actual implementation. First, we made some methods static in order to access them more easily without creating a new object every time we want to access data in a table. These methods are `get()`, `getAll()`, `delete()`, `clearAll()`. Second, we changed the signatures of the methods that we mentioned in the first point. Since those methods are static now, we need to pass into one more argument to indicate the database name when we use those methods. 
+In comparison with the planning, there are a few changes in the actual implementation. First, we made some methods static in order to access them more easily without creating a new object every time we want to access data in a table. These methods are `get()`, `getAll()`, `delete()`, `clearAll()`. Second, we changed the signatures of the methods that we mentioned in the first point. Since those methods are static now, we need to pass into one more argument to indicate the database name when we use those methods.
+
+__History UI__
+
+The interface for viewing voice history is integrated into the options page (in `optionsView.jsx`) by adding it as a separate tab. Once that tab is navigated to, it loads the main `History` component (in `historyView.jsx`) which encapsulates the history data retrieval. The `History` component retrieves the data from the `IndexedDB` and passes it all to the `HistoryTable` component (in `historyView.jsx`) which manipulates the data. It also keeps track of changes to the data and re-fetches it if it has been modified. This way, the `HistoryTable` component only handles the presentation of data and logic of user interaction with the table which are closely tied togehter. This allows the components to follow the single responsibility principle.
+
+The `HistoryTable` component contains the logic of the user interaction such as pagination of data, the number of entries they wish to see and clearing the history.
 
 ## Acceptance Tests
 
